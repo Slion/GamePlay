@@ -22,6 +22,7 @@
 #include <set>
 #include <stack>
 #include <map>
+#include <unordered_map>
 #include <queue>
 #include <algorithm>
 #include <limits>
@@ -116,7 +117,7 @@ extern int strcmpnocase(const char* s1, const char* s2);
     #pragma warning( disable : 4244 )
     #pragma warning( disable : 4267 )
     #pragma warning( disable : 4311 )
-	#pragma warning( disable : 4316 )
+    #pragma warning( disable : 4316 )
     #pragma warning( disable : 4390 )
     #pragma warning( disable : 4800 )
     #pragma warning( disable : 4996 )
@@ -182,6 +183,8 @@ extern int strcmpnocase(const char* s1, const char* s2);
 #ifdef __ANDROID__
     #include <AL/al.h>
     #include <AL/alc.h>
+    #define AL_ALEXT_PROTOTYPES
+    #include <AL/alext.h>
 #elif WIN32
     #define AL_LIBTYPE_STATIC
     #include <AL/al.h>
@@ -215,9 +218,13 @@ using std::va_list;
     extern PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArrays;
     extern PFNGLGENVERTEXARRAYSOESPROC glGenVertexArrays;
     extern PFNGLISVERTEXARRAYOESPROC glIsVertexArray;
+    extern PFNGLMAPBUFFEROESPROC glMapBuffer;
+    extern PFNGLUNMAPBUFFEROESPROC glUnmapBuffer;
+    #define GL_WRITE_ONLY GL_WRITE_ONLY_OES
     #define GL_DEPTH24_STENCIL8 GL_DEPTH24_STENCIL8_OES
     #define glClearDepth glClearDepthf
     #define OPENGL_ES
+    #define GP_USE_VAO
 #elif WIN32
         #define WIN32_LEAN_AND_MEAN
         #define GLEW_STATIC
@@ -236,6 +243,9 @@ using std::va_list;
         #define glDeleteVertexArrays glDeleteVertexArraysOES
         #define glGenVertexArrays glGenVertexArraysOES
         #define glIsVertexArray glIsVertexArrayOES
+        #define glMapBuffer glMapBufferOES
+        #define glUnmapBuffer glUnmapBufferOES
+        #define GL_WRITE_ONLY GL_WRITE_ONLY_OES
         #define GL_DEPTH24_STENCIL8 GL_DEPTH24_STENCIL8_OES
         #define glClearDepth glClearDepthf
         #define OPENGL_ES
